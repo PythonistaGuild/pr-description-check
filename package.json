@@ -1,0 +1,18 @@
+{
+  "name": "pythonista-pr-action",
+  "version": "1.0.0",
+  "description": "Ensure certain conditions are met in the PR body before passing the check.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "PythonistaGuild",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@octokit/webhooks-schemas": "^7.3.1",
+    "@octokit/webhooks-types": "^7.3.1"
+  }
+}
