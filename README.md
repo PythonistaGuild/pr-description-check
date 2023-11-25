@@ -1,16 +1,14 @@
-# PythonistaGuild PR Description Check Action
+# Pythonista PR Description Check Action
 
-A small action to check whether specific strings are contained in the body/description of a PR.
-
-
-Useful for checking whether certain conditions have been agreed to E.g. with [x] or []
+Action which checks whether a specific string is contained within a PR description.  
+This is useful for checking whether certain conditions have been met, e.g. signing an agreement.
 
 ## To Use:
 
-**Make a workflow:**
+**Create a workflow:**
 
 ```yaml
-name: pr-description-check
+name: validate-description
 on:
   pull_request:
     types:
@@ -21,10 +19,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
-        uses: actions/checkout@v4
       - name: PR Description Check
         uses: pythonistaguild/pr-description-check@v1.0
         with:
-          content: "string to check exists"
+          # Check whether the author has enabled this checkbox
+          content: "[x] Python is my favorite programming language!"
 ```
