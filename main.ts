@@ -8,8 +8,8 @@ export async function run() {
         if (github.context.eventName === "pull_request") {
             core.debug(`CONTEXT IS: ${github.context}`);
             core.debug(`PAYLOAD IS: ${github.context.payload}`);
-            
-            const pullPayload = github.context.payload as PullRequest;
+
+            const pullPayload = github.context.payload.pull_request as PullRequest;
             const body: string | null = pullPayload.body;
 
             core.info(`BODY IS: ${body}`);

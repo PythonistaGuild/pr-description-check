@@ -28901,7 +28901,7 @@ async function run() {
         if (github.context.eventName === "pull_request") {
             core.debug(`CONTEXT IS: ${github.context}`);
             core.debug(`PAYLOAD IS: ${github.context.payload}`);
-            const pullPayload = github.context.payload;
+            const pullPayload = github.context.payload.pull_request;
             const body = pullPayload.body;
             core.info(`BODY IS: ${body}`);
             if (!body) {
