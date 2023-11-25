@@ -7,7 +7,9 @@ function doChecks() {
   if (github.context.eventName === "pull_request") {
     const pullPayload = github.context.payload as PullRequest;
     const body: string | null = pullPayload.body;
-  
+
+    core.info(`BODY IS: ${body}`);
+    
     if (!body) { 
       core.setFailed("No PR body provided. Please ensure you include the PR template.");
       return 1;
