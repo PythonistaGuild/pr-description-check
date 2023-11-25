@@ -1,12 +1,12 @@
-name: 'Pythonista PR Description Check'
-description: 'Ensure certain content conditions are met in the PR body before passing the check.'
+name: "Pythonista PR Description Check"
+description: "Ensure certain content conditions are met in the PR body before passing the check."
 inputs:
   content:
-    description: 'The content string to check in the PR body.'
+    description: "The content string to check in the PR body."
     required: true
 outputs:
   passed:
-    description: 'All PR content checks passed.'
+    description: "All PR content checks passed."
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: "node20"
+  main: "dist/index.js"
