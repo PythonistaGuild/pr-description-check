@@ -1,4 +1,4 @@
-name: 'Pythonista PR Validator'
+name: 'Pythonista PR Description Check'
 description: 'Ensure certain content conditions are met in the PR body before passing the check.'
 inputs:
   content:
