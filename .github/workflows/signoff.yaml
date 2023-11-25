@@ -1,0 +1,13 @@
+name: validate-signoff
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: validate signoff
+        uses: ./
+        with:
+          content: "[x] I have read and agree to the [Developer Certificate of Origin]"
