@@ -28864,7 +28864,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 6442:
+/***/ 1385:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -28893,32 +28893,37 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
 const core = __importStar(__nccwpck_require__(115));
 const github = __importStar(__nccwpck_require__(3007));
-function doChecks() {
-    if (github.context.eventName === "pull_request") {
-        const pullPayload = github.context.payload;
-        const body = pullPayload.body;
-        core.info(`BODY IS: ${body}`);
-        if (!body) {
-            core.setFailed("No PR body provided. Please ensure you include the PR template.");
-            return 1;
+async function run() {
+    try {
+        if (github.context.eventName === "pull_request") {
+            core.debug(`CONTEXT IS: ${github.context}`);
+            core.debug(`PAYLOAD IS: ${github.context.payload}`);
+            const pullPayload = github.context.payload;
+            const body = pullPayload.body;
+            core.info(`BODY IS: ${body}`);
+            if (!body) {
+                core.setFailed("No PR body provided. Please ensure you include the PR template.");
+                return 1;
+            }
+            const lower = body.toLowerCase();
+            const content = core.getInput("content").toLowerCase();
+            if (!lower.includes(content)) {
+                core.setFailed(`Content check for "${content}" was not successful.`);
+                return 1;
+            }
+            core.setOutput("passed", "All content checks were successful!");
         }
-        const lower = body.toLowerCase();
-        const content = core.getInput("content").toLowerCase();
-        if (!lower.includes(content)) {
-            core.setFailed(`Content check for "${content}" was not successful.`);
-            return 1;
-        }
-        core.setOutput("passed", "All content checks were successful!");
+    }
+    catch (error) {
+        // Fail the workflow run if an error occurs
+        if (error instanceof Error)
+            core.setFailed(error.message);
     }
 }
-try {
-    doChecks();
-}
-catch (error) {
-    core.setFailed(error.message);
-}
+exports.run = run;
 
 
 /***/ }),
@@ -30812,12 +30817,22 @@ module.exports = parseParams
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __nccwpck_require__(6442);
-/******/ 	module.exports = __webpack_exports__;
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+var exports = __webpack_exports__;
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+/**
+ * The entrypoint for the action.
+ */
+const main_1 = __nccwpck_require__(1385);
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+(0, main_1.run)();
+
+})();
+
+module.exports = __webpack_exports__;
 /******/ })()
 ;
