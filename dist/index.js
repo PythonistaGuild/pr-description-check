@@ -28869,34 +28869,54 @@ function wrappy (fn, cb) {
 
 "use strict";
 
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const core_1 = __importDefault(__nccwpck_require__(115));
-const github_1 = __importDefault(__nccwpck_require__(3007));
+const core = __importStar(__nccwpck_require__(115));
+const github = __importStar(__nccwpck_require__(3007));
 function doChecks() {
-    if (github_1.default.context.eventName === "pull_request") {
-        const pullPayload = github_1.default.context.payload;
+    if (github.context.eventName === "pull_request") {
+        const pullPayload = github.context.payload;
         const body = pullPayload.body;
         if (!body) {
-            core_1.default.setFailed("No PR body provided. Please ensure you include the PR template.");
+            core.setFailed("No PR body provided. Please ensure you include the PR template.");
             return 1;
         }
         const lower = body.toLowerCase();
-        const content = core_1.default.getInput("content").toLowerCase();
+        const content = core.getInput("content").toLowerCase();
         if (!lower.includes(content)) {
-            core_1.default.setFailed(`Content check for "${content}" was not successful.`);
+            core.setFailed(`Content check for "${content}" was not successful.`);
             return 1;
         }
-        core_1.default.setOutput("passed", "All content checks were successful!");
+        core.setOutput("passed", "All content checks were successful!");
     }
 }
 try {
     doChecks();
 }
 catch (error) {
-    core_1.default.setFailed(error.message);
+    core.setFailed(error.message);
 }
 
 
