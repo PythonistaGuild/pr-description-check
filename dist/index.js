@@ -28896,23 +28896,24 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(115));
 const github = __importStar(__nccwpck_require__(3007));
+/**
+ * The main function for the action.
+ * @returns {Promise<void>} Resolves when the action is complete.
+ */
 async function run() {
     try {
         if (github.context.eventName === "pull_request") {
-            core.debug(`CONTEXT IS: ${github.context}`);
-            core.debug(`PAYLOAD IS: ${github.context.payload}`);
             const pullPayload = github.context.payload.pull_request;
             const body = pullPayload.body;
-            core.info(`BODY IS: ${body}`);
             if (!body) {
                 core.setFailed("No PR body provided. Please ensure you include the PR template.");
-                return 1;
+                return;
             }
             const lower = body.toLowerCase();
             const content = core.getInput("content").toLowerCase();
             if (!lower.includes(content)) {
                 core.setFailed(`Content check for "${content}" was not successful.`);
-                return 1;
+                return;
             }
             core.setOutput("passed", "All content checks were successful!");
         }
